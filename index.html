@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f2eb">
+  <meta name="description" content="慢下来，逛成都。发现街巷、美食与公园里的蓉城日常。">
+  <title>成都慢游 · 一座适合慢下来的城市</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Noto+Serif+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+      --paper: #f5f2eb;
+      --ink: #202820;
+      --muted: #74796e;
+      --green: #284b3c;
+      --green-light: #dce5d8;
+      --orange: #d86d45;
+      --line: rgba(32, 40, 32, .14);
+      --serif: "Noto Serif SC", "Songti SC", serif;
+      --sans: "DM Sans", "PingFang SC", "Microsoft YaHei", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--sans);
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; }
+    .wrap { width: min(1180px, calc(100% - 64px)); margin: 0 auto; }
+
+    .topbar {
+      height: 82px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--line);
+    }
+    .brand { display: flex; align-items: center; gap: 12px; }
+    .brand-mark {
+      width: 38px; height: 38px; display: grid; place-items: center;
+      border-radius: 50%; background: var(--green); color: #f8f5ec;
+      font-family: var(--serif); font-size: 19px;
+    }
+    .brand-name { font-family: var(--serif); font-size: 17px; font-weight: 600; letter-spacing: .08em; }
+    .brand-sub { margin-top: 2px; color: var(--muted); font-size: 10px; letter-spacing: .15em; }
+    .nav { display: flex; align-items: center; gap: 38px; font-size: 13px; }
+    .nav a { transition: color .2s ease; }
+    .nav a:hover { color: var(--orange); }
+    .nav .nav-cta { padding: 11px 18px; border: 1px solid var(--green); border-radius: 2px; color: var(--green); }
+    .menu-toggle {
+      display: none; border: 0; background: transparent; color: var(--ink);
+      font-size: 24px; cursor: pointer;
+    }
+
+    .hero {
+      min-height: 570px; padding: 76px 0 64px; display: grid;
+      grid-template-columns: .9fr 1.1fr; gap: 66px; align-items: center;
+    }
+    .eyebrow {
+      display: flex; align-items: center; gap: 10px; color: var(--green);
+      font-size: 11px; font-weight: 600; letter-spacing: .2em;
+    }
+    .eyebrow::before { content: ""; width: 27px; height: 1px; background: var(--orange); }
+    h1 {
+      margin: 25px 0 19px; font-family: var(--serif); font-weight: 500;
+      font-size: clamp(44px, 6vw, 76px); line-height: 1.23; letter-spacing: -.045em;
+    }
+    h1 span { color: var(--green); }
+    .hero-copy { max-width: 430px; color: var(--muted); font-size: 14px; line-height: 2; }
+    .hero-links { display: flex; align-items: center; gap: 24px; margin-top: 32px; }
+    .button {
+      display: inline-flex; align-items: center; gap: 14px;
+      padding: 14px 19px; background: var(--green); color: white;
+      font-size: 12px; transition: background .2s ease, transform .2s ease;
+    }
+    .button:hover { background: #19382a; transform: translateY(-2px); }
+    .text-link { color: var(--muted); font-size: 12px; }
+    .text-link span { margin-left: 6px; color: var(--orange); }
+
+    .hero-visual { position: relative; min-height: 414px; }
+    .hero-image {
+      position: absolute; inset: 0 28px 20px 0; overflow: hidden;
+      background: #a7a48a url("https://images.unsplash.com/photo-1519501025264-65ba15a82390?auto=format&fit=crop&w=1400&q=85") center 48% / cover;
+    }
+    .hero-image::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 48%, rgba(12, 24, 18, .52)); }
+    .image-caption { position: absolute; z-index: 1; bottom: 43px; left: 34px; color: white; }
+    .image-caption small { display: block; margin-bottom: 8px; font-size: 10px; letter-spacing: .16em; opacity: .8; }
+    .image-caption strong { font-family: var(--serif); font-size: 22px; font-weight: 500; }
+    .hero-stamp {
+      position: absolute; right: 0; top: 34px; width: 98px; height: 98px;
+      display: grid; place-content: center; text-align: center;
+      border: 1px solid var(--paper); outline: 1px solid var(--green);
+      background: var(--green); color: #f6f2e8; border-radius: 50%;
+      font-family: var(--serif); transform: rotate(9deg);
+    }
+    .hero-stamp strong { font-size: 25px; font-weight: 500; line-height: 1; }
+    .hero-stamp span { margin-top: 6px; font-size: 10px; letter-spacing: .12em; }
+    .hero-note {
+      position: absolute; right: 0; bottom: 0; padding: 13px 18px;
+      background: var(--paper); color: var(--muted); font-size: 10px; letter-spacing: .06em;
+    }
+
+    .ticker {
+      border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+      padding: 17px 0; overflow: hidden;
+    }
+    .ticker-inner { display: flex; justify-content: space-between; gap: 24px; color: var(--green); }
+    .ticker-item { display: flex; align-items: center; gap: 13px; white-space: nowrap; font-family: var(--serif); font-size: 14px; }
+    .ticker-item span { color: var(--orange); font-family: var(--sans); font-size: 13px; }
+
+    .section { padding: 100px 0; }
+    .section-heading { display: flex; align-items: end; justify-content: space-between; margin-bottom: 37px; }
+    .section-kicker { color: var(--orange); font-size: 10px; letter-spacing: .19em; font-weight: 700; }
+    h2 { margin: 11px 0 0; font-family: var(--serif); font-size: clamp(30px, 4vw, 43px); font-weight: 500; letter-spacing: -.03em; }
+    .section-aside { max-width: 280px; color: var(--muted); font-size: 12px; line-height: 1.9; }
+    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .place-card { min-width: 0; }
+    .card-image { position: relative; height: 260px; overflow: hidden; background: #c1bba8; }
+    .card-image img { width: 100%; height: 100%; display: block; object-fit: cover; transition: transform .5s ease; }
+    .place-card:hover .card-image img { transform: scale(1.04); }
+    .card-number { position: absolute; top: 15px; left: 16px; padding: 7px 10px; background: var(--paper); color: var(--green); font-size: 10px; letter-spacing: .1em; }
+    .card-meta { display: flex; align-items: center; justify-content: space-between; margin-top: 17px; }
+    .card-meta h3 { margin: 0; font-family: var(--serif); font-size: 19px; font-weight: 500; }
+    .card-meta span { color: var(--muted); font-size: 10px; }
+    .card-description { margin: 8px 0 0; color: var(--muted); font-size: 12px; line-height: 1.8; }
+
+    .food-section { padding: 74px 0; background: var(--green); color: #f5f2eb; }
+    .food-grid { display: grid; grid-template-columns: .85fr 1.15fr; align-items: center; gap: 70px; }
+    .food-section .section-kicker { color: #e8a27e; }
+    .food-section h2 { max-width: 390px; }
+    .food-copy { color: rgba(245, 242, 235, .7); font-size: 13px; line-height: 2; }
+    .food-list { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid rgba(255,255,255,.25); }
+    .food-item { display: flex; align-items: center; justify-content: space-between; padding: 21px 5px; border-bottom: 1px solid rgba(255,255,255,.25); font-family: var(--serif); font-size: 16px; }
+    .food-item span { color: #e8a27e; font-family: var(--sans); font-size: 12px; }
+
+    .closing { padding: 86px 0 72px; text-align: center; }
+    .closing .eyebrow { justify-content: center; }
+    .closing h2 { margin-top: 20px; font-size: clamp(30px, 5vw, 52px); }
+    .closing p { color: var(--muted); font-size: 13px; line-height: 1.9; }
+    .closing .button { margin-top: 15px; }
+    footer { border-top: 1px solid var(--line); padding: 22px 0; }
+    .footer-inner { display: flex; justify-content: space-between; gap: 18px; color: var(--muted); font-size: 10px; }
+    .footer-inner strong { color: var(--green); font-family: var(--serif); font-size: 13px; font-weight: 500; }
+
+    @media (max-width: 760px) {
+      .wrap { width: min(100% - 40px, 560px); }
+      .topbar { height: 70px; }
+      .menu-toggle { display: block; }
+      .nav {
+        display: none; position: absolute; z-index: 5; top: 70px; left: 0; right: 0;
+        padding: 18px 20px 22px; flex-direction: column; align-items: stretch; gap: 0;
+        background: var(--paper); border-bottom: 1px solid var(--line);
+      }
+      .nav.is-open { display: flex; }
+      .nav a { padding: 13px 0; }
+      .nav .nav-cta { margin-top: 7px; padding: 12px 14px; text-align: center; }
+      .hero { min-height: 0; padding: 57px 0 49px; grid-template-columns: 1fr; gap: 37px; }
+      h1 { margin-top: 19px; }
+      .hero-visual { min-height: 330px; }
+      .hero-image { right: 18px; }
+      .hero-stamp { width: 82px; height: 82px; }
+      .hero-stamp strong { font-size: 21px; }
+      .ticker-inner { justify-content: flex-start; overflow-x: auto; scrollbar-width: none; }
+      .ticker-inner::-webkit-scrollbar { display: none; }
+      .ticker-item { flex: 0 0 auto; }
+      .section { padding: 67px 0; }
+      .section-heading { display: block; }
+      .section-aside { margin-top: 14px; }
+      .cards { grid-template-columns: 1fr; gap: 28px; }
+      .card-image { height: 250px; }
+      .food-grid { grid-template-columns: 1fr; gap: 26px; }
+      .food-section { padding: 62px 0; }
+      .food-list { gap: 0 15px; }
+      .food-item { font-size: 14px; }
+      .closing { padding: 65px 0 54px; }
+      .footer-inner { flex-direction: column; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="wrap topbar">
+    <a class="brand" href="#" aria-label="成都慢游首页">
+      <span class="brand-mark">蓉</span>
+      <span><span class="brand-name">成都慢游</span><span class="brand-sub">SLOW DAYS IN CHENGDU</span></span>
+    </a>
+    <button class="menu-toggle" type="button" aria-label="打开导航菜单" aria-expanded="false" aria-controls="site-nav">☰</button>
+    <nav class="nav" id="site-nav" aria-label="主导航">
+      <a href="#discover">去哪里</a>
+      <a href="#taste">吃什么</a>
+      <a href="#about">关于成都</a>
+      <a class="nav-cta" href="#discover">开始漫游 <span aria-hidden="true">↗</span></a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="wrap hero" id="about">
+      <div>
+        <div class="eyebrow">天府之国 · 成都</div>
+        <h1>一座适合<br><span>慢下来</span>的城市</h1>
+        <p class="hero-copy">在茶馆里消磨一个下午，在老街巷里遇见寻常日子。成都的好，不用赶路，慢慢走就知道。</p>
+        <div class="hero-links">
+          <a class="button" href="#discover">发现成都 <span aria-hidden="true">↗</span></a>
+          <a class="text-link" href="#taste">先从一顿饭开始 <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+      <div class="hero-visual" aria-label="成都城市街景">
+        <div class="hero-image">
+          <div class="image-caption"><small>A CITY THAT FEELS LIKE HOME</small><strong>巴适，才是生活的答案</strong></div>
+        </div>
+        <div class="hero-stamp"><strong>慢</strong><span>一点也无妨</span></div>
+        <div class="hero-note">东经 104° · 北纬 30°</div>
+      </div>
+    </section>
+
+    <div class="ticker" aria-label="成都关键词">
+      <div class="wrap ticker-inner">
+        <div class="ticker-item">茶馆里的闲适 <span>✳</span></div>
+        <div class="ticker-item">巷子里的烟火 <span>✳</span></div>
+        <div class="ticker-item">舌尖上的麻辣 <span>✳</span></div>
+        <div class="ticker-item">公园里的日常 <span>✳</span></div>
+      </div>
+    </div>
+
+    <section class="wrap section" id="discover">
+      <div class="section-heading">
+        <div>
+          <div class="section-kicker">TAKE A LITTLE WALK</div>
+          <h2>把脚步，交给成都</h2>
+        </div>
+        <p class="section-aside">不必打卡所有景点。挑一条喜欢的街，给自己留点闲逛的时间。</p>
+      </div>
+      <div class="cards">
+        <article class="place-card">
+          <div class="card-image">
+            <img src="https://images.unsplash.com/photo-1519307212971-ddc4f8e71b2c?auto=format&fit=crop&w=900&q=80" alt="绿意环绕的传统庭院" loading="lazy">
+            <span class="card-number">01 / 街巷</span>
+          </div>
+          <div class="card-meta"><h3>宽窄巷子</h3><span>慢逛 · 看老成都</span></div>
+          <p class="card-description">青砖灰瓦之间，逛逛老院子，也看看新成都的日常。</p>
+        </article>
+        <article class="place-card">
+          <div class="card-image">
+            <img src="https://images.unsplash.com/photo-1518837695005-2083093ee35b?auto=format&fit=crop&w=900&q=80" alt="阳光下安静的水岸" loading="lazy">
+            <span class="card-number">02 / 自然</span>
+          </div>
+          <div class="card-meta"><h3>锦城湖畔</h3><span>散步 · 吹吹风</span></div>
+          <p class="card-description">沿着湖边走一段，把城市的节奏调慢一点。</p>
+        </article>
+        <article class="place-card">
+          <div class="card-image">
+            <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=900&q=80" alt="咖啡馆里的一杯热饮" loading="lazy">
+            <span class="card-number">03 / 日常</span>
+          </div>
+          <div class="card-meta"><h3>人民公园</h3><span>喝茶 · 摆龙门阵</span></div>
+          <p class="card-description">找张竹椅坐下来，听一听成都人最熟悉的闲谈。</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="food-section" id="taste">
+      <div class="wrap food-grid">
+        <div>
+          <div class="section-kicker">A TABLE FULL OF STORIES</div>
+          <h2>成都的味道，<br>从来不止麻辣</h2>
+          <p class="food-copy">一口热气腾腾的担担面，一杯盖碗茶。三餐四季，都是这座城市认真生活的理由。</p>
+        </div>
+        <div class="food-list" aria-label="成都风味推荐">
+          <div class="food-item">火锅 <span>热辣过瘾 ↗</span></div>
+          <div class="food-item">担担面 <span>咸香回甜 ↗</span></div>
+          <div class="food-item">钟水饺 <span>红油鲜香 ↗</span></div>
+          <div class="food-item">糖油果子 <span>街头甜意 ↗</span></div>
+          <div class="food-item">龙抄手 <span>一口鲜汤 ↗</span></div>
+          <div class="food-item">盖碗茶 <span>坐下来喝 ↗</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="wrap closing">
+      <div class="eyebrow">YOUR CHENGDU STORY</div>
+      <h2>别着急，成都一直都在。</h2>
+      <p>带上好奇心，也带上一点空闲。<br>下一段成都日常，就从此刻开始。</p>
+      <a class="button" href="#discover">再逛一会儿 <span aria-hidden="true">↑</span></a>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-inner">
+      <strong>成都慢游 · SLOW DAYS IN CHENGDU</strong>
+      <span>愿你在成都，找到自己的生活节奏。</span>
+      <span>© 2026 成都慢游</span>
+    </div>
+  </footer>
+
+  <script>
+    const menuButton = document.querySelector(".menu-toggle");
+    const navigation = document.querySelector("#site-nav");
+
+    menuButton.addEventListener("click", () => {
+      const isOpen = menuButton.getAttribute("aria-expanded") === "true";
+      menuButton.setAttribute("aria-expanded", String(!isOpen));
+      menuButton.setAttribute("aria-label", isOpen ? "打开导航菜单" : "关闭导航菜单");
+      navigation.classList.toggle("is-open", !isOpen);
+    });
+
+    navigation.addEventListener("click", (event) => {
+      if (event.target.closest("a")) {
+        menuButton.setAttribute("aria-expanded", "false");
+        menuButton.setAttribute("aria-label", "打开导航菜单");
+        navigation.classList.remove("is-open");
+      }
+    });
+  </script>
+</body>
+</html>
